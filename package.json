@@ -28,6 +28,7 @@
     "eslint-plugin-react": "3.16.1",
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
+    "mongoose": "^4.4.11",
     "postcss": "5.0.14",
     "postcss-modules-extract-imports": "1.0.0",
     "postcss-modules-local-by-default": "1.0.1",
@@ -38,7 +39,9 @@
     "react-transform-hmr": "1.0.1",
     "redux": "3.0.6",
     "request": "2.69.0",
+    "socket.io": "^1.4.5",
     "style-loader": "0.13.0",
+    "twitter": "^1.2.5",
     "webpack": "1.12.12",
     "webpack-dev-middleware": "1.5.1",
     "webpack-hot-middleware": "2.6.4"
