@@ -1,13 +1,5 @@
 
-  // 
-  // var io = require('socket.io-client');
-  //
-  // var socket = io.connect('http://192.168.1.12:3000');
-  // // Handle incoming messages
-  // socket.on('tweet', function(data) {
-  //
-  //   console.log(data);
-  // });
+var io = require('socket.io-client');
 
 var React = require('react');
 
@@ -17,10 +9,38 @@ var styles = require('./App.css');
 
 var TweetList = React.createClass({
 
-  render : function(){
+  getInitialState: function() {
+    return{
+      tweets: []
+    };
+  },
+  addTweet: function(data) {
+    console.log(data);
+    var updated = this.state.tweets;
+    updated.unshift(data);
+    this.setState({
+      tweets: updated
+    });
 
+  },
+
+  componentDidMount: function() {
+    // Handle incoming messages
+    var socket = io.connect(window.location.href);
+
+    socket.on('tweet', function(data) {
+      console.log(data);
+      this.addTweet(data);
+    }.bind(this));
+  },
+  render : function(){
+    var tweetNodes = this.state.tweets.map(function(tweet) {
+      return(
+        <p>{tweet.body}</p>
+      );
+    });
     return (
-        <h1>hi</h1>
+        <h1>{tweetNodes}</h1>
     );
   }
 });

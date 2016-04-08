@@ -2,7 +2,6 @@ var Tweet = require('./models/tweet');
 
 module.exports = function(stream, io) {
   stream.on('data', function(data) {
-    console.log(data);
     var tweet = {
       twid: data['id_str'],
       active: false,
@@ -17,14 +16,9 @@ module.exports = function(stream, io) {
 
     tweetEntry.save(function(err) {
       if (!err){
-        console.log('saved');
 
-
+        io.emit('tweet', tweet);
       }
-    });
-    // // broadcast tweet
-    io.sockets.on('connection', function(socket) {
-      socket.emit('tweet', tweet);
     });
 
   });

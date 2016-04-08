@@ -62,11 +62,11 @@ compiler.plugin('done', function() {
 });
 
 
-var http = require('http');
-var server = http.createServer(app);
-var io = require('socket.io')(server);
-
-
+var io = require('socket.io')({}).listen(app.listen(3000, '0.0.0.0',
+function(err) {
+  if (err) throw err;
+  console.log('server listening on port 3000');
+}));
 mongoose.connect();
 
 var client = twitter(configs.twitter);
@@ -76,15 +76,4 @@ var trackFilter = {track: 'javascript'};
 
 client.stream('statuses/filter', trackFilter, function(stream) {
   streamHandler(stream, io);
-});
-
-
-
-
-server.listen(3000, '0.0.0.0', function(err) {
-  if (err) throw err;
-
-  var addr = server.address();
-
-  console.log('Listening at http://%s:%d', addr.address, addr.port);
 });
