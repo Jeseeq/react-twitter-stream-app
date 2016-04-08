@@ -77,7 +77,7 @@ mongoose.connect();
 
 var client = twitter(configs.twitter);
 
-var trackFilter = {track: 'javascript'};
+var trackFilter = {track: 'javascript', language: 'en'};
 
 
 client.stream('statuses/filter', trackFilter, function(stream) {

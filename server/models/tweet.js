@@ -12,11 +12,11 @@ var tweetSchema = mongoose.Schema({
 tweetSchema.statics.getTweets = function(page, skip, cb) {
 
 
-  var tweets = [],
-    start = (page * 10) + (skip * 1);
+  var tweets = [];
+  var start = (page * 10) + (skip * 1);
 
 
-  Tweet.find({}, 'twid active author avatar body date screenname',
+  this.find({}, 'twid active author avatar body date screenname',
             {skip: start, limit : 10})
             .sort({date: 'desc'})
             .exec(function(err, data) {
@@ -31,5 +31,4 @@ tweetSchema.statics.getTweets = function(page, skip, cb) {
 };
 
 var Tweet = mongoose.model('Tweet', tweetSchema);
-
 module.exports = Tweet;
