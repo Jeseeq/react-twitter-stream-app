@@ -64,7 +64,7 @@ compiler.plugin('done', function() {
 
 var http = require('http');
 var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(server);
 
 
 mongoose.connect();
@@ -73,7 +73,6 @@ var client = twitter(configs.twitter);
 
 var trackFilter = {track: 'javascript'};
 
-console.log(client);
 
 client.stream('statuses/filter', trackFilter, function(stream) {
   streamHandler(stream, io);

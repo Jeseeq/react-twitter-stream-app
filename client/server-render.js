@@ -4,7 +4,7 @@ var React = require('react');
 
 var { renderToString } = require('react-dom/server');
 
-var App = require('./components/App');
+var TweetList = require('./components/TweetList');
 
 /* eslint-disable no-sync */
 var template = fs.readFileSync(__dirname + '/../index.html', 'utf8');
@@ -13,7 +13,7 @@ var template = fs.readFileSync(__dirname + '/../index.html', 'utf8');
 function renderApp(path, callback) {
 
   var rendered = renderToString(
-      <App />
+      <TweetList />
   );
 
   var page = template

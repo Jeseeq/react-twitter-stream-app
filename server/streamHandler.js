@@ -14,15 +14,17 @@ module.exports = function(stream, io) {
     };
 
     var tweetEntry = new Tweet(tweet);
+
     tweetEntry.save(function(err) {
       if (!err){
         console.log('saved');
 
-        // // broadcast tweet
-        io.sockets.on('connection', function(socket) {
-          socket.emit('tweet', tweet);
-        });
+
       }
+    });
+    // // broadcast tweet
+    io.sockets.on('connection', function(socket) {
+      socket.emit('tweet', tweet);
     });
 
   });
