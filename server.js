@@ -4,11 +4,18 @@ require('css-modules-require-hook')({
 require('babel-register');
 
 var express = require('express');
-
 var chokidar = require('chokidar');
 var webpack = require('webpack');
 var config = require('./webpack.config');
 var compiler = webpack(config);
+
+
+
+var twitter = require('twitter');
+
+var configs = require('./server/config');
+var streamHandler = require('./server/streamHandler');
+var mongoose = require('./server/mongoose');
 
 var app = express();
 
@@ -54,8 +61,27 @@ compiler.plugin('done', function() {
   });
 });
 
+
 var http = require('http');
 var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+
+mongoose.connect();
+
+var client = twitter(configs.twitter);
+
+var trackFilter = {track: 'javascript'};
+
+console.log(client);
+
+client.stream('statuses/filter', trackFilter, function(stream) {
+  streamHandler(stream, io);
+});
+
+
+
+
 server.listen(3000, '0.0.0.0', function(err) {
   if (err) throw err;
 
