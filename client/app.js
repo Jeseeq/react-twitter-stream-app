@@ -1,9 +1,9 @@
 /* eslint-env browser */
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var TweetList = require('./components/TweetList');
+import TweetList from './components/TweetList';
 
 
 

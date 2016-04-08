@@ -8,6 +8,7 @@ var chokidar = require('chokidar');
 var webpack = require('webpack');
 var config = require('./webpack.config');
 var compiler = webpack(config);
+var exphbs = require('express-handlebars');
 
 
 
@@ -25,18 +26,23 @@ app.use(require("webpack-dev-middleware")(compiler, {
 }));
 app.use(require("webpack-hot-middleware")(compiler));
 
+// Set handlebars as the templating engine
+app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+
 // Include server routes as a middleware
 app.use(function(req, res, next) {
   require('./server/app')(req, res, next);
 });
 
-// Anything else gets passed to the client app's server rendering
-app.get('*', function(req, res, next) {
-  require('./client/server-render')(req.path, function(err, page) {
-    if (err) return next(err);
-    res.send(page);
-  });
-});
+// // Anything else gets passed to the client app's server rendering
+// app.get('*', function(req, res, next) {
+//   require('./client/server-render')(req.path, function(err, page) {
+//     if (err) return next(err);
+//     res.send(page);
+//   });
+// });
 
 // Do "hot-reloading" of express stuff on the server
 // Throw away cached modules and re-require next time

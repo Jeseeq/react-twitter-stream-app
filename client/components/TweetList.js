@@ -1,13 +1,13 @@
 
-var io = require('socket.io-client');
+import io from 'socket.io-client';
 
-var React = require('react');
+import React from 'react';
 
-var styles = require('./App.css');
+import  styles from './App.css';
 
 
 
-var TweetList = React.createClass({
+const TweetList = React.createClass({
 
   getInitialState: function() {
     return{
@@ -45,4 +45,4 @@ var TweetList = React.createClass({
   }
 });
 
-module.exports = TweetList;
+export default TweetList;
