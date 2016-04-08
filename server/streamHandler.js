@@ -2,6 +2,7 @@ var Tweet = require('./models/tweet');
 
 module.exports = function(stream, io) {
   stream.on('data', function(data) {
+
     var tweet = {
       twid: data['id_str'],
       active: false,
@@ -22,6 +23,7 @@ module.exports = function(stream, io) {
     });
 
   });
+
   stream.on('error', function(error) {
     console.log(error);
   });

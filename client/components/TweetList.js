@@ -11,11 +11,11 @@ const TweetList = React.createClass({
 
   getInitialState: function() {
     return{
-      tweets: []
+      tweets: this.props.data
     };
   },
+
   addTweet: function(data) {
-    console.log(data);
     var updated = this.state.tweets;
     updated.unshift(data);
     this.setState({
@@ -29,10 +29,10 @@ const TweetList = React.createClass({
     var socket = io.connect(window.location.href);
 
     socket.on('tweet', function(data) {
-      console.log(data);
       this.addTweet(data);
     }.bind(this));
   },
+
   render : function(){
     var tweetNodes = this.state.tweets.map(function(tweet) {
       return(
@@ -45,4 +45,4 @@ const TweetList = React.createClass({
   }
 });
 
-export default TweetList;
+module.exports = TweetList;
