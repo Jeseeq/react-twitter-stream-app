@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+
 var tweetSchema = new mongoose.Schema({
   twid        : String
   , active     : Boolean

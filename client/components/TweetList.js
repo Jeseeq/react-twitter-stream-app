@@ -2,8 +2,7 @@
 import io from 'socket.io-client';
 
 import React from 'react';
-
-import  styles from './App.css';
+import Tweet from './Tweet';
 
 
 
@@ -27,25 +26,13 @@ const TweetList = React.createClass({
 
   getPage: function(page) {
 
-    var request = new XMLHttpRequest();
-    var self = this;
-
-    request.open('GET', 'page/' + page + '/' + this.state.skip, true);
-
-    request.onload = function() {
-
-      if (request.status >= 200 && request.status < 400){
-
-        self.addPage(JSON.parse(request.responseText));
-
-      }else {
-        console.log('Pagging done');
-      }
-    };
-
-    // fire request
-    request.send();
+    fetch('/page/' + page + '/' + this.state.skip)
+    .then((response) => response.text())
+    .then((tweet) => {
+      this.addPage(JSON.parse(tweet));
+    });
   },
+
   addPage: function(tweets) {
 
     if (tweets.length >= 0){
@@ -96,11 +83,11 @@ const TweetList = React.createClass({
   render : function(){
     var tweetNodes = this.state.tweets.map(function(tweet) {
       return(
-        <p>{tweet.body}</p>
+        <Tweet key={tweet.twid} tweet = {tweet} />
       );
     });
     return (
-        <h1>{tweetNodes}</h1>
+        <ul className="tweets">{tweetNodes}</ul>
     );
   }
 });

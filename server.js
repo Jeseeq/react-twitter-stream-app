@@ -59,6 +59,8 @@ compiler.plugin('done', function() {
   });
 });
 
+app.use("/", express.static(__dirname + "/client/public/"));
+
 
 var io = require('socket.io')({}).listen(app.listen(3000, '0.0.0.0',
 function(err) {

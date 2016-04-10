@@ -7,7 +7,7 @@ var Tweet = require('./models/tweet');
 var TweetList = require('../client/components/TweetList');
 
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   Tweet.getTweets(0, 0, function(err, tweets) {
 
 
