@@ -20,8 +20,10 @@ app.get('/', function(req, res) {
   });
 });
 
-app.get('/whoami', (req, res) => {
-  res.send("You are a nac");
+app.get('/page/:page/:skip', (req, res) => {
+  Tweet.getTweets(req.params.page, req.params.skip, function(err, tweets) {
+    res.send(tweets);
+  });
 });
 
 module.exports = app;
